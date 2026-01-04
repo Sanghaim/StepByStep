@@ -1,6 +1,6 @@
 import { type Exercise } from '../types';
 
-export const exercises: Array<Exercise> = [
+export const exercisesSeed: Array<Exercise> = [
   // Strength - Chest
   { id: 'bench-press', name: 'Bench Press', category: 'Strength', muscleGroup: ['Chest', 'Triceps'] },
   { id: 'incline-bench-press', name: 'Incline Bench Press', category: 'Strength', muscleGroup: ['Chest', 'Shoulders', 'Triceps'] },
