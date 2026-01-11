@@ -1,3 +1,5 @@
+import { WorkoutList } from "./components/WorkoutList"
+
 function App() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -9,6 +11,8 @@ function App() {
           Welcome to your Workout Tracker! Let's get started.
         </p>
       </main>
+
+      <WorkoutList></WorkoutList>
     </div>
   )
 }

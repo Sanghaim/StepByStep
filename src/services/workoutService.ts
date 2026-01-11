@@ -4,14 +4,40 @@ const WORKOUTS_KEY = 'workouts';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+const sampleWorkout: Workout = {
+  id: crypto.randomUUID(),
+  date: new Date().toISOString(), // Today's date
+  exercises: [
+    {
+      exerciseId: 'bench-press', // Use an ID from your exercise library
+      sets: [
+        { reps: 10, weight: 60 },
+        { reps: 8, weight: 65 },
+        { reps: 6, weight: 70 }
+      ],
+      notes: 'Felt strong today!'
+    },
+    {
+      exerciseId: 'squat',
+      sets: [
+        { reps: 12, weight: 80 },
+        { reps: 10, weight: 90 }
+      ]
+    }
+  ],
+  duration: 45,
+  caloriesBurned: 250,
+  notes: 'Great workout session!'
+};
+
 export const workoutService = {
-  async getWorkouts() {
+  async getWorkouts(): Promise<Array<Workout>> {
     await delay(500); // Simulate network delay
     const workouts = localStorage.getItem(WORKOUTS_KEY);
-    return workouts ? JSON.parse(workouts) : [];
+    return workouts ? JSON.parse(workouts) : [sampleWorkout];
   },
 
-  async getWorkoutById(id: string) {
+  async getWorkoutById(id: string): Promise<Workout | null> {
     await delay(500); // Simulate network delay
     const workouts = localStorage.getItem(WORKOUTS_KEY);
     if (!workouts) return null;
