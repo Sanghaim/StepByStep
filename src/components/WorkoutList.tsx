@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { type Workout } from '../types';
+import { type Exercise, type Workout } from '../types';
 import { workoutService } from '../services/workoutService';
 
-export const WorkoutList = () => {
+export const WorkoutList = ({ exercises }: { exercises: Array<Exercise>}) => {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -34,11 +34,26 @@ export const WorkoutList = () => {
     <section className='bg-gray-800 w-1/4 min-w-60 border-4 border-black rounded-r-xl text-gray-300'>
       <h2 className='p-4 text-2xl font-extrabold'>Workouts</h2>
       <div>
-        <ul className='space-y-'>
+        <ul className='space-y-4'>
           {workouts.map((workout) => 
             <li key={workout.id} className='p-6 bg-gray-700 m-2 border-stone-700 rounded-lg border-2 space-y-2'>
               <h3 className='text-xl font-bold mb-2 text-white'>{new Date(workout.date).toLocaleDateString()}</h3>
               <div>Number of exercises: {workout.exercises.length}</div>
+              <section>
+                {workout.exercises.map((exercise) => {
+                  const exerciseData = exercises.find(ex => ex.id === exercise.exerciseId)
+                  return (
+                    <div key={exercise.exerciseId}>
+                      <span>{exerciseData?.name} - {exercise.sets.length} sets</span>
+                      {exercise.sets.map((set, index) => 
+                        <div key={`${exercise.exerciseId}-${index}`} className='ml-4 text-sm text-gray-400'>
+                          {set.reps} x {set.weight}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </section>
               { workout.notes && <div className='font-light'>{workout.notes}</div>}
               <div className='space-x-4'>
                 { workout.duration && <span className='font-light'>{workout.duration} minutes</span> }

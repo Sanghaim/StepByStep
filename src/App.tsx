@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react"
 import { WorkoutList } from "./components/WorkoutList"
+import type { Exercise } from "./types"
+import { exerciseService } from "./services/exerciseService"
 
 function App() {
+  const [exercises, setExercises] = useState<Exercise[]>([])
+
+  useEffect(() => {
+    const fetchExercises = async () => {
+      try {
+        const exercicesResponse = await exerciseService.getExercises()
+        setExercises(exercicesResponse)
+      } catch (error: any) {
+        console.error(error)
+      }
+    }
+
+    fetchExercises()
+  }, [])
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-blue-600 text-white p-4 shadow-md">
@@ -12,7 +29,7 @@ function App() {
         </p>
       </main>
 
-      <WorkoutList></WorkoutList>
+      <WorkoutList exercises={exercises}></WorkoutList>
     </div>
   )
 }
