@@ -11,7 +11,7 @@ function App() {
       try {
         const exercicesResponse = await exerciseService.getExercises()
         setExercises(exercicesResponse)
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error(error)
       }
     }

@@ -41,7 +41,7 @@ export const workoutService = {
     await delay(500); // Simulate network delay
     const workouts = localStorage.getItem(WORKOUTS_KEY);
     if (!workouts) return null;
-    return JSON.parse(workouts).find((w: any) => w.id === id) || null;
+    return JSON.parse(workouts).find((w: Workout) => w.id === id) || null;
   },
 
   async createWorkout(workout: Omit<Workout, 'id'>): Promise<Workout> {
