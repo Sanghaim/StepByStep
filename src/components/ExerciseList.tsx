@@ -14,8 +14,10 @@ export const ExerciseList = ({ workoutExercises, exerciseList }: { workoutExerci
         <span>{exerciseData?.name} - {exercise.sets.length} sets</span>
         <ul className="ml-4">
         {exercise.sets.map((set, index) => 
-          <li key={`${exercise.exerciseId}-${index}`} className='ml-4 text-sm text-gray-400'>
-            {set.reps} reps × {set.weight} kg
+          <li key={`${exercise.exerciseId}-${index}`} className='ml-4 text-sm text-gray-400 flex gap-2'>
+            <span className="w-8 text-right">{set.reps}</span>
+            <span>×</span>
+            <span className="w-16">{set.weight} kg</span>
           </li>
         )}
         </ul>
